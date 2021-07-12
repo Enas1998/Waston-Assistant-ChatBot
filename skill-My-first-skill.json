@@ -1,0 +1,337 @@
+{
+  "intents": [
+    {
+      "intent": "comes_and_goes",
+      "examples": [
+        {
+          "text": "comes and goes"
+        },
+        {
+          "text": "one off"
+        },
+        {
+          "text": "one-off"
+        }
+      ],
+      "description": ""
+    },
+    {
+      "intent": "headaches",
+      "examples": [
+        {
+          "text": "i have headaches"
+        },
+        {
+          "text": "my head hurt"
+        },
+        {
+          "text": "my head hurt me"
+        },
+        {
+          "text": "my head hurts"
+        },
+        {
+          "text": "my head hurts me"
+        }
+      ],
+      "description": ""
+    },
+    {
+      "intent": "heat",
+      "examples": [
+        {
+          "text": "i have heat"
+        },
+        {
+          "text": "im hot"
+        },
+        {
+          "text": "my heat temperature is high"
+        }
+      ],
+      "description": ""
+    },
+    {
+      "intent": "Hello",
+      "examples": [
+        {
+          "text": "hello"
+        },
+        {
+          "text": "hi"
+        },
+        {
+          "text": "welcome"
+        }
+      ],
+      "description": ""
+    },
+    {
+      "intent": "ok",
+      "examples": [
+        {
+          "text": "ok"
+        }
+      ],
+      "description": ""
+    },
+    {
+      "intent": "Qs",
+      "examples": [
+        {
+          "text": "can i have some help"
+        },
+        {
+          "text": "can i see the doctor"
+        },
+        {
+          "text": "help"
+        },
+        {
+          "text": "help me"
+        },
+        {
+          "text": "help me please"
+        },
+        {
+          "text": "i am sick"
+        },
+        {
+          "text": "I have a question"
+        },
+        {
+          "text": "may i ask a question"
+        }
+      ],
+      "description": ""
+    },
+    {
+      "intent": "Thank_you",
+      "examples": [
+        {
+          "text": "thanks"
+        },
+        {
+          "text": "thank you"
+        },
+        {
+          "text": "ty"
+        }
+      ],
+      "description": ""
+    },
+    {
+      "intent": "yes_no",
+      "examples": [
+        {
+          "text": "no"
+        },
+        {
+          "text": "nope"
+        },
+        {
+          "text": "yea"
+        },
+        {
+          "text": "yes"
+        },
+        {
+          "text": "yup"
+        }
+      ],
+      "description": ""
+    }
+  ],
+  "entities": [],
+  "metadata": {
+    "api_version": {
+      "major_version": "v2",
+      "minor_version": "2018-11-08"
+    }
+  },
+  "webhooks": [
+    {
+      "url": "",
+      "name": "main_webhook",
+      "headers": []
+    }
+  ],
+  "dialog_nodes": [
+    {
+      "type": "standard",
+      "title": "thanks",
+      "output": {
+        "generic": [
+          {
+            "values": [
+              {
+                "text": "Your welcome. Hope you get well soon!"
+              }
+            ],
+            "response_type": "text",
+            "selection_policy": "sequential"
+          }
+        ]
+      },
+      "conditions": "#Thank_you",
+      "dialog_node": "Anything else",
+      "previous_sibling": "node_6_1626085281055",
+      "disambiguation_opt_out": true
+    },
+    {
+      "type": "standard",
+      "output": {
+        "generic": [
+          {
+            "values": [
+              {
+                "text": "OK. How long have you had the headache? Is this a one-off or something that comes and goes?"
+              }
+            ],
+            "response_type": "text",
+            "selection_policy": "sequential"
+          }
+        ]
+      },
+      "conditions": "#headaches",
+      "dialog_node": "node_5_1625335790495",
+      "previous_sibling": "node_6_1625335389641"
+    },
+    {
+      "type": "standard",
+      "output": {
+        "generic": [
+          {
+            "values": [
+              {
+                "text": "Do you have any other severe or worsening symptoms? Like difficulty breathing and chest pain or severe pain or swelling?"
+              }
+            ],
+            "response_type": "text",
+            "selection_policy": "sequential"
+          },
+          {
+            "values": [],
+            "response_type": "text",
+            "selection_policy": "sequential"
+          }
+        ]
+      },
+      "conditions": "#heat",
+      "dialog_node": "node_5_1625392291416",
+      "previous_sibling": "node_5_1625335790495"
+    },
+    {
+      "type": "standard",
+      "output": {
+        "generic": [
+          {
+            "values": [
+              {
+                "text": "OK. Got it. I'll tell the Doctor about your situation and then connect you two."
+              }
+            ],
+            "response_type": "text",
+            "selection_policy": "sequential"
+          }
+        ]
+      },
+      "conditions": "#yes_no || #comes_and_goes",
+      "dialog_node": "node_5_1625392554916",
+      "previous_sibling": "node_5_1625392291416"
+    },
+    {
+      "type": "standard",
+      "title": "start",
+      "output": {
+        "generic": [
+          {
+            "values": [
+              {
+                "text": "The Doctor can help. Just a couple of quick questions before I transfer you. What are all your symptoms? Are you currently using any medications?"
+              }
+            ],
+            "response_type": "text",
+            "selection_policy": "sequential"
+          },
+          {
+            "values": [],
+            "response_type": "text",
+            "selection_policy": "sequential"
+          }
+        ]
+      },
+      "conditions": "#Qs",
+      "dialog_node": "node_6_1625335389641",
+      "previous_sibling": "Welcome"
+    },
+    {
+      "type": "standard",
+      "output": {
+        "generic": [
+          {
+            "values": [
+              {
+                "text": "Alright"
+              }
+            ],
+            "response_type": "text",
+            "selection_policy": "sequential"
+          }
+        ]
+      },
+      "conditions": "#ok",
+      "dialog_node": "node_6_1626085281055",
+      "previous_sibling": "node_5_1625392554916"
+    },
+    {
+      "type": "standard",
+      "title": "hello",
+      "output": {
+        "generic": [
+          {
+            "values": [
+              {
+                "text": "Hi there. How can I help?"
+              }
+            ],
+            "response_type": "text",
+            "selection_policy": "sequential"
+          },
+          {
+            "values": [],
+            "response_type": "text",
+            "selection_policy": "sequential"
+          }
+        ]
+      },
+      "conditions": "#Hello",
+      "dialog_node": "Welcome"
+    }
+  ],
+  "counterexamples": [],
+  "system_settings": {
+    "off_topic": {
+      "enabled": true
+    },
+    "disambiguation": {
+      "prompt": "Did you mean:",
+      "enabled": true,
+      "randomize": true,
+      "max_suggestions": 5,
+      "suggestion_text_policy": "title",
+      "none_of_the_above_prompt": "None of the above"
+    },
+    "human_agent_assist": {
+      "prompt": "Did you mean:"
+    },
+    "intent_classification": {
+      "training_backend_version": "v2"
+    },
+    "spelling_auto_correct": true
+  },
+  "learning_opt_out": false,
+  "name": "My first skill",
+  "language": "en",
+  "description": ""
+}
